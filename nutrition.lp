@@ -1,16 +1,16 @@
 /*
 *  detail nutrition values of food
-*  format is "foodName, calories, protein, fat, carbohydrate" 
+*  format is "foodName, calories, protein, fat, carbohydrate"
 *  calories, protein, fat, carbohydrate based on 1 oz.
 *  All data from google
 *  calories, Protein/ oz-eq, Dairy/ c-eq, Oil/ g, Vegetables/ c-eq, Fruits/ c-eq, Grains/ oz-eq
-*  
+*
 */
 
 
 % beef
 nutrition(groundBeef_80,72,5,0,6).
-nutrition(steak, 60, 7, 0, 3).
+nutrition(steak, 76.83, 7, 0, 5.38).
 nutrition(brisket,44,6,0,2.1).
 
 % chicken
@@ -30,14 +30,14 @@ nutrition(bacon,117,3.5,0.4,11).
 nutrition(groundPork_96,52,9,0.2,1.8).
 nutrition(groundPork_72,111,6.5,0.4,9).
 
-nutrition(egg,26,2,0.2,1.7).
+nutrition(egg,78,6,5,0.6). % an oz-eq of egg is 1 egg
 
 % vegetable c-eq
 nutrition(broccoli,31,2.6,6,0.3).
 nutrition(kale,66,5.8,12,1.2).
 nutrition(carrot,50,1.1,12,0.3).
 nutrition(brusselSprout,38,3,8,0.3).
-nutrition(lettuce,10,1,2,0.2)
+nutrition(lettuce,10,1,2,0.2).
 nutrition(spinach,14,1.8,2.2,0.2).
 nutrition(arugula,12,1.2,1.6,0.4).
 
@@ -50,7 +50,7 @@ nutrition(beans,80,5,15,0.3).
 nutrition(tofu,23,2.5,0.6,1.5).
 
 % fruit c-eq
-nutrition(apple,57,0.3,15,0.2). 
+nutrition(apple,57,0.3,15,0.2).
 nutrition(grapes,62,0.6,16,0.3).
 nutrition(strawberry,47,1,11,0.4).
 nutrition(banana,133,1.6,34,0.5).
@@ -68,23 +68,23 @@ nutrition(vegetableOil,8.84,0,0,1).
 nutrition(butter,7.17,0.09,0,0.81).
 
 %% Cateories
-beef(groundBeef_80):- not beef(steak), beef(brisket).
-beef(steak):- not beef(brisket), not beef(groundBeef_80).
-beef(brisket):- not beef(steak), not beef(groundBeef_80).
+beef(groundBeef_80).
+beef(steak).
+beef(brisket).
 
-chicken(chickenBreast):- not chicken(chickenThigh).
-chicken(chickenThigh):- not chicken(chickenBreast).
+chicken(chickenBreast).
+chicken(chickenThigh).
 
-fish(salmon):- not fish(halibut), not fish(trout), not fish(tuna), not fish(tilapia).
-fish(halibut):- not fish(salmon), not fish(trout), not fish(tuna), not fish(tilapia).
-fish(trout):- not fish(salmon), not fish(halibut), not fish(tuna), not fish(tilapia).
-fish(tuna):- not fish(salmon), not fish(halibut), not fish(trout), not fish(tilapia).
-fish(tilapia):- not fish(salmon), not fish(halibut), not fish(trout), not fish(tuna).
+fish(salmon).
+fish(halibut).
+fish(trout).
+fish(tuna).
+fish(tilapia).
 
 pork(porkLoin).
 pork(bacon).
-pork(groundPork_96):- not pork(groundPork_72).
-pork(groundPork_72):- not pork(groundPork_96).
+pork(groundPork_96).
+pork(groundPork_72).
 
 vegetable(broccoli).
 vegetable(kale).
@@ -92,11 +92,11 @@ vegetable(carrot).
 vegetable(brusselSprout).
 vegetable(spinach).
 vegetable(arugula).
-vegetable(lettuce)2
+vegetable(lettuce).
+vegetable(potato).
 
-grain(potato).
-grain(rice):- not grain(pasta).
-grain(pasta):- not grain(rice).
+grain(rice).
+grain(pasta).
 grain(bread).
 
 fruit(apple).
@@ -111,13 +111,12 @@ dairy(cheese).
 oil(vegetableOil).
 oil(butter).
 
-meat(X): beef(X).
-meat(X): pork(X).
-meat(X): fish(X).
+meat(X) :- beef(X).
+meat(X) :- pork(X).
+meat(X) :- fish(X).
 
 protein(egg).
-protein(X): meat(X).
+protein(X):- meat(X).
 protein(tofu).
 protein(beans):- not vegetable(beans).
 vegetable(beans):- not protein(beans).
-
